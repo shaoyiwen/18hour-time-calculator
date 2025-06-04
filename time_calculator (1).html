@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>18小时推算计算器</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; }
+        input, button { font-size: 1.2em; margin: 10px; }
+    </style>
+</head>
+<body>
+    <h2>18小时推算计算器</h2>
+    <p>请输入时间（24小时制，例如 14:30）</p>
+    <input type="time" id="timeInput">
+    <button onclick="calculate()">计算</button>
+    <p id="result"></p>
+
+    <script>
+        function calculate() {
+            const input = document.getElementById("timeInput").value;
+            if (!input) {
+                alert("请输入时间！");
+                return;
+            }
+            const [hour, minute] = input.split(":").map(Number);
+            const date = new Date();
+            date.setHours(hour);
+            date.setMinutes(minute);
+            date.setSeconds(0);
+            date.setMilliseconds(0);
+            date.setTime(date.getTime() + 18 * 60 * 60 * 1000); // 加18小时
+
+            const hh = String(date.getHours()).padStart(2, "0");
+            const mm = String(date.getMinutes()).padStart(2, "0");
+            document.getElementById("result").textContent = `18小时后是：${hh}:${mm}`;
+        }
+    </script>
+</body>
+</html>
